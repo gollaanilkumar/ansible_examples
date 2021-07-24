@@ -1,0 +1,27 @@
+---
+- hosts: apache
+  become: yes
+  tasks:
+    - name: Install Apache
+      yum:
+        name: httpd
+        state: present
+      tags:
+        - Install
+    - name : copy to deployment directory
+      copy:
+        src: index.html
+        dest: /var/www/html/
+      tags:
+        - deployment
+     - name: Start and enable apache
+       service:
+         name: httpd
+         state: started
+         enabled: yes
+       tags:
+          - Deployment
+        
+        
+        
+  
