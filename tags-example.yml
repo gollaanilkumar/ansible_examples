@@ -14,14 +14,12 @@
         dest: /var/www/html/
       tags:
         - deployment
-     - name: Start and enable apache
-       service:
-         name: httpd
-         state: started
-         enabled: yes
-       tags:
+    - name : Start and enable apache
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+      tags:
           - Deployment
         
         
-        
-  
