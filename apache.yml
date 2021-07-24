@@ -9,7 +9,7 @@
     - name: Copy local file t deployment directory
       copy:
         src: index.html
-        des: /var/www/html/
+        dest: /var/www/html/
 
     - name: start and enable apache
       service:
