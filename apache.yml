@@ -1,19 +1,20 @@
 ---
 - hosts: apache
   become: yes
-- name : Install apache
-  yum:
-    name: httpd
-    state: present
-- name: Copy local file t deployment directory
-  copy:
-    src: index.html
-    des: /var/www/html/
+  tasks:
+    - name : Install apache
+      yum:
+        name: httpd
+        state: present
+   - name: Copy local file t deployment directory
+       copy:
+         src: index.html
+         des: /var/www/html/
 
-- name: start and enable apache
-  service:
-    name: httpd
-    state: started
-    enabled: yes
+   - name: start and enable apache
+       service:
+         name: httpd
+         state: started
+         enabled: yes
 
 
