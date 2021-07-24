@@ -1,0 +1,42 @@
+---
+- hosts: apache
+  become: yes
+  vars:
+    - apache_port: 80
+  tasks:
+    - name : Install apache
+      yum :
+        name : httpd
+        state: present
+      tags:
+        - install
+    - name : start and enable apache
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+      tags:
+         - start
+    - name : Deploy the code
+      copy:
+        src: index.html
+        dest: /var/www/html
+      tags:
+        - Deploy
+      notify:
+        - restart
+    - name : Change port number
+      lineinfile:
+        path: /etc/httpd/conf/httpd.conf
+        regexp: '^Listen '
+        insertafter: '^#Listen '
+        line: 'Listen {{apache_port}}'
+      notify :
+        - restart
+  handlers :
+   - name : restart
+     service:
+       name: httpd
+       state: restarted
+
+

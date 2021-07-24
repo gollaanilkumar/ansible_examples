@@ -1,0 +1,12 @@
+---
+- hosts: apache
+  become: yes
+  tasks:
+    - name: Install packages
+      yum:
+        name: " {{item}}"
+        state: present
+      loop:
+        - git
+        - maven
+        - docker
